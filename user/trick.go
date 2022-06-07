@@ -1,6 +1,8 @@
 package user
 
-import "bytes"
+import (
+	"bytes"
+)
 
 func ConcatString(a string, b string) string {
 	/*
