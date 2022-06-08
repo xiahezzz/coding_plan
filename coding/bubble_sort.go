@@ -1,10 +1,10 @@
 package coding
 
-func BubbleSort(arr []int) []int {
+func BubbleSort(arr []int) {
 	length := len(arr)
 
 	if arr == nil || length <= 1 {
-		return arr
+		return
 	}
 
 	for i := 0; i < length-1; i++ {
@@ -16,6 +16,4 @@ func BubbleSort(arr []int) []int {
 			}
 		}
 	}
-
-	return arr
 }

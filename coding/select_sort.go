@@ -1,10 +1,10 @@
 package coding
 
-func SelectionSort(arr []int) []int {
+func SelectionSort(arr []int) {
 	length := len(arr)
 
 	if arr == nil || length < 2 {
-		return arr
+		return
 	}
 
 	for i := 0; i < length-1; i++ {
@@ -18,6 +18,4 @@ func SelectionSort(arr []int) []int {
 
 		arr[i], arr[min_value_index] = arr[min_value_index], arr[i]
 	}
-
-	return arr
 }

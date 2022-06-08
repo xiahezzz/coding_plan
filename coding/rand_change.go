@@ -18,14 +18,53 @@ func getRandNum01() int {
 	}
 }
 
+func f() int {
+	if rand.Float64() < 0.6 {
+		return 0
+	}
+	return 1
+}
+
+func GetRandNum01f() int {
+	result := f()
+	for result == f() {
+		result = f()
+	}
+	return result
+	/* 	for {
+		result = 0
+		for i := 0; i < 2; i++ {
+			result += (f() << (1 - i))
+		}
+
+		if result != 0 && result != 3 {
+			return result - 1
+		}
+	} */
+}
+
 func RandChange() int {
-	result := 0
+	var result int
 	for {
+		result = 0
 		for i := 0; i < 3; i++ {
 			result += (getRandNum01() << (2 - i))
 		}
 		if result != 0 {
 			return result
+		}
+	}
+}
+
+func RandChange2() int {
+	var result int
+	for {
+		result = 0
+		for i := 0; i < 6; i++ {
+			result += (getRandNum01() << (5 - i))
+		}
+		if result <= 39 {
+			return result + 17
 		}
 	}
 }

@@ -1,9 +1,9 @@
 package coding
 
-func InsertSort(arr []int) []int {
+func InsertSort(arr []int) {
 	length := len(arr)
 	if arr == nil || length <= 1 {
-		return arr
+		return
 	}
 
 	for i := 1; i < length; i++ {
@@ -14,6 +14,4 @@ func InsertSort(arr []int) []int {
 			arr[pre] = temp
 		}
 	}
-
-	return arr
 }

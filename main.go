@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
 	"CodingPlan/coding"
+	"CodingPlan/user"
 )
 
 func main() {
@@ -15,13 +15,34 @@ func main() {
 	   	fmt.Println(coding.CalSumLR(1, 2)) */
 
 	rand.Seed(time.Now().UnixNano())
-	count := 0
+	/* count := 0
 	for i := 0; i < 100000000; i++ {
-		if coding.RandChange() == 1 {
+		if coding.GetRandNum01f() == 1 {
 			count++
 		}
 	}
 	fmt.Printf("count: %v\n", count)
-	fmt.Printf("(count / 100000000): %v\n", float64(count)/100000000.0)
+	fmt.Printf("(count / 100000000): %v\n", float64(count)/100000000.0) */
+	test_times := 1000
+	maxValue := 1000
+	maxLength := 100
+	for i := 0; i < test_times; i++ {
+		arr_use := coding.GetArrRandom(maxLength, maxValue)
+		arr_sorted := make([]int, len(arr_use))
+		copy(arr_sorted, arr_use)
+		coding.InsertSort(arr_sorted)
+		/* 		if !user.IsSortedArr(arr_sorted) {
+			fmt.Println("arr_use:", arr_use)
+			fmt.Println("arr_sorted:", arr_sorted)
+			fmt.Println("bubble sort false")
+			break
+		} */
+		rand_value := int(rand.Float64() * float64(maxValue))
+		_, ok := coding.BinarySearch(arr_sorted, rand_value)
+		if !(user.IsExistElem(arr_sorted, rand_value) == ok) {
+			print("search false")
+			break
+		}
+	}
 
 }
