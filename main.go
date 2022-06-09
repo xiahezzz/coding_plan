@@ -1,12 +1,25 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
 	"CodingPlan/coding"
-	"CodingPlan/user"
 )
+
+func test(arr []int, num int) int {
+	if arr == nil || len(arr) == 0 {
+		return -1
+	}
+
+	for i := 0; i < len(arr); i++ {
+		if arr[i] >= num {
+			return i
+		}
+	}
+	return -1
+}
 
 func main() {
 	/* 	s := user.Hello()
@@ -23,7 +36,7 @@ func main() {
 	}
 	fmt.Printf("count: %v\n", count)
 	fmt.Printf("(count / 100000000): %v\n", float64(count)/100000000.0) */
-	test_times := 1000
+	test_times := 1
 	maxValue := 1000
 	maxLength := 100
 	for i := 0; i < test_times; i++ {
@@ -38,11 +51,12 @@ func main() {
 			break
 		} */
 		rand_value := int(rand.Float64() * float64(maxValue))
-		_, ok := coding.BinarySearch(arr_sorted, rand_value)
-		if !(user.IsExistElem(arr_sorted, rand_value) == ok) {
-			print("search false")
-			break
+		index, _ := coding.FindNumBLeft(arr_sorted, rand_value)
+		if !(index == test(arr_sorted, rand_value)) {
+			fmt.Println("Fucked!")
 		}
+		t := coding.FindMinIndex([]int{3, 2, 3, 2, 3})
+		fmt.Printf("t: %v\n", t)
 	}
 
 }
