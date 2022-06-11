@@ -6,10 +6,11 @@ import (
 	"time"
 
 	"CodingPlan/coding"
+	"CodingPlan/user"
 )
 
 func test(arr []int, num int) int {
-	if arr == nil || len(arr) == 0 {
+	if len(arr) == 0 {
 		return -1
 	}
 
@@ -58,5 +59,12 @@ func main() {
 		t := coding.FindMinIndex([]int{3, 2, 3, 2, 3})
 		fmt.Printf("t: %v\n", t)
 	}
+	// var a *user.Node
+	a := &user.Node{Data: 1, Next: nil}
+	a.Next = &user.Node{Data: 2, Next: nil}
+	a.Next.Next = &user.Node{Data: 3, Next: nil}
+
+	a.ReverseList().PrintList()
+	a.PrintList()
 
 }
