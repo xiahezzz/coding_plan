@@ -39,6 +39,9 @@
 # Go语言入门
 ## `user/trick.go` 
 
-* `ConcatString` 连接字符串，使用buffer更高效，还可以设置其容量。
+* `ConcatString` Go里面string是最基础的类型，是一个只读类型，针对他的每一个操作都会创建一个新的string。 如果是少量小文本拼接，用 “+” 就好；如果是大量小文本拼接，用 strings.Join；如果是大量大文本拼接，用 bytes.Buffer。
 * `RandTest` 随机数生成，Go中不能对不同类型的数值进行任意科学运算！在主函数中先设置随机数种子。
 * 注意引用传递时，实参被改变的情况。
+  
+## `user/utils.go` 
+* `nq.PeekQueue()` 注意队列为空时，直接返回nq.Head为nil，但不可调用nq.Head(nil).Data(引用空指针)
