@@ -60,14 +60,16 @@ func main() {
 		fmt.Printf("t: %v\n", t)
 	}
 
-	a := user.Stack()
-	fmt.Printf("a.Push(1): %v\n", a.Push(1))
-	a.Push("i")
-	a.Peek()
-	fmt.Printf("a.Length(): %v\n", a.Length())
-	a.Head.PrintList()
-	fmt.Printf("a.Pop(): %v\n", a.Pop())
-	a.Head.PrintList()
-	fmt.Printf("a.Length(): %v\n", a.Length())
+	a := user.NodeQueue{}
+	a.Push(1)
+	a.Push(2)
+	a.Push(1)
+	a.Push(4)
+	a.Push(6)
+	a.Push(8)
+	a.Push(0)
+	a.Push(4)
+	new := coding.ReverseByGroup(a.Head, 3)
+	new.PrintList()
 
 }

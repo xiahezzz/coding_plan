@@ -2,11 +2,13 @@ package user
 
 import "fmt"
 
-func (n *Node) PrintList() {
+func (n *Node) PrintList() *Node {
+	list := n
 	for n != nil {
 		fmt.Printf("n.Data: %v\n", n.Data)
 		n = n.Next
 	}
+	return list
 }
 
 func (n *Node) Length() int {
@@ -31,11 +33,20 @@ func (n *Node) Update(num int) {
 	n.Data = temp
 }
 
+func (n *Node) GetArrList() []int {
+	result := make([]int, 0)
+	for i := 0; n != nil; i++ {
+		result = append(result, n.Data.(int))
+		n = n.Next
+	}
+	return result
+}
+
 func Queue() *NodeQueue {
 	return &NodeQueue{Head: nil, Tail: nil}
 }
 
-func (nq *NodeQueue) EnterQueue(data interface{}) bool {
+func (nq *NodeQueue) Push(data interface{}) bool {
 	n := &Node{
 		Data: data,
 		Next: nil,
@@ -52,20 +63,20 @@ func (nq *NodeQueue) EnterQueue(data interface{}) bool {
 	return true
 }
 
-func (nq *NodeQueue) LengthQueue() int {
+func (nq *NodeQueue) Length() int {
 	return nq.length
 }
 
-func (nq *NodeQueue) PeekQueue() interface{} {
+func (nq *NodeQueue) Peek() interface{} {
 	if nq.length == 0 {
 		return nil
 	}
 	return nq.Head.Data
 }
 
-func (nq *NodeQueue) PopQueue() interface{} {
-	if nq.LengthQueue() == 0 {
-		return nq.PeekQueue()
+func (nq *NodeQueue) Pop() interface{} {
+	if nq.length == 0 {
+		return nq.Peek()
 	}
 	temp := nq.Head
 	nq.Head = nq.Head.Next
@@ -152,4 +163,83 @@ func (ns *NodeStack) Pop() interface{} {
 	ns.Head = ns.Head.Next
 	ns.length--
 	return temp
+}
+
+func (deq *DoubleNodeQueue) Length() int {
+	return deq.length
+}
+
+func (deq *DoubleNodeQueue) IsEmpty() bool {
+	return deq.length == 0
+}
+
+func (deq *DoubleNodeQueue) Push(data interface{}, method string) bool {
+	if method != "left" && method != "right" {
+		return false
+	}
+
+	dn := &DoubleNode{
+		Data: data,
+		Next: nil,
+		Pre:  nil,
+	}
+
+	if deq.length == 0 {
+		deq.Head = dn
+		deq.Tail = dn
+	}
+
+	if method == "left" {
+		deq.Head.Pre = dn
+		dn.Next = deq.Head
+		deq.Head = dn
+	} else {
+		deq.Tail.Next = dn
+		dn.Pre = deq.Tail
+		deq.Tail = dn
+	}
+
+	deq.length++
+	return true
+}
+
+func (deq *DoubleNodeQueue) Peek(method string) interface{} {
+	if method != "left" && method != "right" {
+		return false
+	}
+	if deq.length == 0 {
+		return nil
+	}
+
+	if method == "left" {
+		return deq.Head.Data
+	}
+	return deq.Tail.Data
+}
+
+func (deq *DoubleNodeQueue) Pop(method string) interface{} {
+	if method != "left" && method != "right" {
+		return false
+	}
+
+	if deq.length == 1 {
+		data := deq.Head.Data
+		deq.Head = nil
+		deq.Tail = nil
+
+		deq.length--
+		return data
+	}
+
+	if method == "left" {
+		deq.Head = deq.Head.Next
+		deq.Head.Pre = nil
+	} else {
+		deq.Tail = deq.Tail.Pre
+		deq.Tail.Next = nil
+	}
+
+	deq.length--
+
+	return deq.Head.Data
 }
