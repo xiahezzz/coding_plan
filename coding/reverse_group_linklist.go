@@ -2,36 +2,57 @@ package coding
 
 import (
 	"CodingPlan/user"
-	"fmt"
 )
 
-func ReverseByGroup(list *user.Node, k int) *user.Node {
-	length := list.Length()
-	data := list.GetArrList()
-	fmt.Printf("data: %v\n", data)
-
-	newList := list
-
-	for i := 0; i < length/k+1; i++ {
-		temp := data[i*k:]
-		if (i+1)*k <= length {
-			temp = data[i*k : (i+1)*k]
-		}
-		BubbleSort(temp)
-		for i2, j2 := 0, len(temp)-1; i2 < j2; i2, j2 = i2+1, j2-1 {
-			temp[i2], temp[j2] = temp[j2], temp[i2]
-		}
-
-		j := 0
-		for list != nil {
-			list.Data = temp[j]
-			fmt.Printf("temp[j]: %v\n", temp[j])
-			j++
-			list = list.Next
-			if j == k {
-				break
-			}
-		}
+func GetKGroup(head *user.Node, k int) *user.Node {
+	for ; k != 1 && head != nil; k-- {
+		head = head.Next
 	}
-	return newList
+	return head
+}
+
+func ReverseNode(head *user.Node, tail *user.Node) *user.Node {
+	var pre *user.Node
+	var next *user.Node
+
+	for head != tail {
+		next = head.Next
+		head.Next = pre
+		pre = head
+		head = next
+	}
+
+	return pre
+}
+
+func ReverseByGroup(list *user.Node, k int) *user.Node {
+	end := GetKGroup(list, k)
+	if end == nil {
+		return list
+	}
+	var lastEnd *user.Node
+	var nextStart *user.Node
+
+	head := end
+
+	start := list
+	nextStart = end.Next
+	ReverseNode(start, nextStart)
+	lastEnd = start
+
+	for end != nil {
+		start = nextStart
+		end = GetKGroup(nextStart, k)
+		if end == nil {
+			lastEnd.Next = nextStart
+			return head
+		}
+		nextStart = end.Next
+		ReverseNode(start, nextStart)
+
+		lastEnd.Next = end
+		lastEnd = start
+	}
+
+	return head
 }

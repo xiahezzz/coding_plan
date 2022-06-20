@@ -103,6 +103,7 @@ func ReverseNode(n *Node) *Node {
 		pre = n
 		n = next
 	}
+	n = pre
 	return pre
 }
 
@@ -242,4 +243,9 @@ func (deq *DoubleNodeQueue) Pop(method string) interface{} {
 	deq.length--
 
 	return deq.Head.Data
+}
+
+func Test(n *Node) {
+	ReverseNode(n)
+	n.PrintList()
 }

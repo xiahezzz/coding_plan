@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"CodingPlan/coding"
-	"CodingPlan/user"
 )
 
 func test(arr []int, num int) int {
@@ -60,16 +59,33 @@ func main() {
 		fmt.Printf("t: %v\n", t)
 	}
 
-	a := user.NodeQueue{}
-	a.Push(1)
-	a.Push(2)
-	a.Push(1)
-	a.Push(4)
-	a.Push(6)
-	a.Push(8)
-	a.Push(0)
-	a.Push(4)
-	new := coding.ReverseByGroup(a.Head, 3)
-	new.PrintList()
+	a := &coding.ListNode{
+		Val:  5,
+		Next: nil,
+	}
+	b := &coding.ListNode{
+		Val:  4,
+		Next: a,
+	}
+	c := &coding.ListNode{
+		Val:  3,
+		Next: b,
+	}
+	d := &coding.ListNode{
+		Val:  2,
+		Next: c,
+	}
+	e := &coding.ListNode{
+		Val:  1,
+		Next: d,
+	}
+
+	list1 := e
+	t := coding.RemoveNthFromEnd(list1, 2)
+
+	for t != nil {
+		fmt.Printf("t.Val: %v\n", t.Val)
+		t = t.Next
+	}
 
 }
